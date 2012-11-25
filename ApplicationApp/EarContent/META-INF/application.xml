@@ -7,7 +7,7 @@
   <module>
     <web>
       <web-uri>ApplicationAppWeb.war</web-uri>
-      <context-root>application</context-root>
+      <context-root>/application</context-root>
     </web>
   </module>
   <library-directory></library-directory>
