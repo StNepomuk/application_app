@@ -526,6 +526,66 @@ public class EntityProfile extends AbstractEntityObject
 	}
 
 	/**
+	 * Liefert die passenden Bewerbung.
+	 * 
+	 * @param applicationId
+	 *            Gesuchte Bewerbung
+	 * @return Bewerbung
+	 */
+	public EntityApplication getApplication( Long applicationId )
+	{
+		Iterator<EntityApplication> iterator = m_applications.iterator();
+
+		while (iterator.hasNext())
+		{
+			EntityApplication contApplication = iterator.next();
+			try
+			{
+				if (contApplication.getId().equals( applicationId ))
+				{
+					return contApplication;
+				}
+			}
+			catch (NullPointerException e)
+			{
+				continue;
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * Liefert die passenden Bewerbung.
+	 * 
+	 * @param jobId
+	 *            Gesuchter Job
+	 * @return Bewerbung
+	 */
+	public EntityApplication getApplicationForJob( Long jobId )
+	{
+		Iterator<EntityApplication> iterator = m_applications.iterator();
+
+		while (iterator.hasNext())
+		{
+			EntityApplication contApplication = iterator.next();
+			try
+			{
+				if (contApplication.getJob().getId().equals( jobId ))
+				{
+					return contApplication;
+				}
+			}
+			catch (NullPointerException e)
+			{
+				continue;
+			}
+		}
+
+		return null;
+	}
+
+	/**
 	 * Löscht die Bewerbung.
 	 * 
 	 * @param application

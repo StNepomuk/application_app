@@ -16,7 +16,7 @@ import javax.ws.rs.core.MediaType;
 import edu.hm.hs.application.api.object.resource.ContactInfo;
 
 /**
- * REST-Service für den Benutzer.
+ * REST-Service für die ContactInfo.
  * 
  * @author Stefan Wörner
  */

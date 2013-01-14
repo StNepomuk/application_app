@@ -21,7 +21,7 @@ import edu.hm.hs.application.api.object.AbstractRessourceObject;
  * @author Stefan Wörner
  */
 @JsonPropertyOrder( value = { "id", "name" }, alphabetic = true )
-@JsonSerialize( include = Inclusion.ALWAYS )
+@JsonSerialize( include = Inclusion.NON_NULL )
 @Produces( { MediaType.APPLICATION_JSON } )
 @Consumes( { MediaType.APPLICATION_JSON } )
 public class Job extends AbstractRessourceObject

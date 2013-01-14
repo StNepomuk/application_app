@@ -27,7 +27,7 @@ import edu.hm.hs.application.api.object.enumeration.Gender;
  */
 @JsonPropertyOrder( value = { "id", "firstname", "lastname", "eMailAddress", "dateOfBirth", "gender", "address", "skills",
 		"contactInfos" }, alphabetic = true )
-@JsonSerialize( include = Inclusion.ALWAYS )
+@JsonSerialize( include = Inclusion.NON_NULL )
 @Produces( { MediaType.APPLICATION_JSON } )
 @Consumes( { MediaType.APPLICATION_JSON } )
 public class Profile extends AbstractRessourceObject

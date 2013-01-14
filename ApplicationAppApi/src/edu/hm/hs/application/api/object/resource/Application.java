@@ -1,5 +1,7 @@
 package edu.hm.hs.application.api.object.resource;
 
+import java.util.Date;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -14,27 +16,28 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 
 import edu.hm.hs.application.api.object.AbstractRessourceObject;
-import edu.hm.hs.application.api.object.enumeration.ContactType;
 
 /**
- * Resource für die Kontakt-Infos.
+ * Resource für den Job.
  * 
  * @author Stefan Wörner
  */
-@JsonPropertyOrder( value = { "id", "type", "value" }, alphabetic = true )
+@JsonPropertyOrder( value = { "id", "date", "profile", "job" }, alphabetic = true )
 @JsonSerialize( include = Inclusion.NON_NULL )
 @Produces( { MediaType.APPLICATION_JSON } )
 @Consumes( { MediaType.APPLICATION_JSON } )
-public class ContactInfo extends AbstractRessourceObject
+public class Application extends AbstractRessourceObject
 {
 
-	private static final long serialVersionUID = 1692104957800493733L;
+	private static final long serialVersionUID = -1614196997206535676L;
 
 	private Long m_id;
 
-	private ContactType m_type;
+	private Date m_date;
 
-	private String m_value;
+	private Job m_job;
+
+	private Profile m_profile;
 
 	/**
 	 * Liefert das Attribut id.
@@ -60,49 +63,72 @@ public class ContactInfo extends AbstractRessourceObject
 	}
 
 	/**
-	 * Liefert das Attribut type.
+	 * Liefert das Attribut date.
 	 * 
-	 * @return type
+	 * @return date
 	 */
-	@JsonProperty( "type" )
-	public ContactType getType()
+	@JsonProperty( "date" )
+	public Date getDate()
 	{
-		return m_type;
+		return m_date;
 	}
 
 	/**
-	 * Setzt das Attribut type.
+	 * Setzt das Attribut date.
 	 * 
-	 * @param type
-	 *            zu setzender Wert für das Attribut type
+	 * @param date
+	 *            zu setzender Wert für das Attribut date
 	 */
-	@JsonProperty( "type" )
-	public void setType( ContactType type )
+	@JsonProperty( "date" )
+	public void setDate( Date date )
 	{
-		m_type = type;
+		m_date = date;
 	}
 
 	/**
-	 * Liefert das Attribut value.
+	 * Liefert das Attribut job.
 	 * 
-	 * @return value
+	 * @return job
 	 */
-	@JsonProperty( "value" )
-	public String getValue()
+	@JsonProperty( "job" )
+	public Job getJob()
 	{
-		return m_value;
+		return m_job;
 	}
 
 	/**
-	 * Setzt das Attribut value.
+	 * Setzt das Attribut job.
 	 * 
-	 * @param value
-	 *            zu setzender Wert für das Attribut value
+	 * @param job
+	 *            zu setzender Wert für das Attribut job
 	 */
-	@JsonProperty( "value" )
-	public void setValue( String value )
+	@JsonProperty( "job" )
+	public void setJob( Job job )
 	{
-		m_value = value;
+		m_job = job;
+	}
+
+	/**
+	 * Liefert das Attribut profile.
+	 * 
+	 * @return profile
+	 */
+	@JsonProperty( "profile" )
+	public Profile getProfile()
+	{
+		return m_profile;
+	}
+
+	/**
+	 * Setzt das Attribut profile.
+	 * 
+	 * @param profile
+	 *            zu setzender Wert für das Attribut profile
+	 */
+	@JsonProperty( "profile" )
+	public void setProfile( Profile profile )
+	{
+		m_profile = profile;
 	}
 
 	/**
@@ -125,7 +151,7 @@ public class ContactInfo extends AbstractRessourceObject
 	public int hashCode()
 	{
 		return HashCodeBuilder.reflectionHashCode( INITIAL_NON_ZERO_ODD_NUMBER, MULTIPLIER_NON_ZERO_ODD_NUMBER, this, true,
-				ContactInfo.class, getExclusionList() );
+				Application.class, getExclusionList() );
 	}
 
 	/**
@@ -136,7 +162,7 @@ public class ContactInfo extends AbstractRessourceObject
 	@Override
 	public boolean equals( Object obj )
 	{
-		return EqualsBuilder.reflectionEquals( this, obj, true, ContactInfo.class, getExclusionList() );
+		return EqualsBuilder.reflectionEquals( this, obj, true, Application.class, getExclusionList() );
 	}
 
 	/**
@@ -150,7 +176,7 @@ public class ContactInfo extends AbstractRessourceObject
 		ReflectionToStringBuilder rsb = new ReflectionToStringBuilder( this, ToStringStyle.SHORT_PREFIX_STYLE );
 		rsb.setAppendStatics( false );
 		rsb.setAppendTransients( true );
-		rsb.setUpToClass( ContactInfo.class );
+		rsb.setUpToClass( Application.class );
 		rsb.setExcludeFieldNames( getExclusionList() );
 		return rsb.toString();
 	}

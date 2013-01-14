@@ -13,6 +13,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import edu.hm.hs.application.api.object.resource.Application;
 import edu.hm.hs.application.api.object.resource.Job;
 
 /**
@@ -90,4 +91,17 @@ public interface IJobService
 	@DELETE
 	@Path( "{job_id}" )
 	void remove( @PathParam( "company_id" ) long companyId, @PathParam( "job_id" ) long jobId );
+
+	/**
+	 * Liste aller Bewerbungen.
+	 * 
+	 * @param companyId
+	 *            Companyidentifikator
+	 * @param jobId
+	 *            Jobidentifikator
+	 * @return Bewerbungen
+	 */
+	@GET
+	@Path( "{job_id}/applications" )
+	List<Application> findAllApplications( @PathParam( "company_id" ) long companyId, @PathParam( "job_id" ) long jobId );
 }
