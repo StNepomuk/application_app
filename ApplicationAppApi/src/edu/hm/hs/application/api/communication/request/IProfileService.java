@@ -14,12 +14,12 @@ import javax.ws.rs.core.MediaType;
 import edu.hm.hs.application.api.object.resource.Profile;
 
 /**
- * REST-Service für den Benutzer.
+ * REST-Service für das Benutzer-Profil.
  * 
  * @author Stefan Wörner
  */
 @Local
-@Path( "/user/{user_id}/profile" )
+@Path( "/users/{user_id}/profile" )
 @Produces( { MediaType.APPLICATION_JSON } )
 @Consumes( { MediaType.APPLICATION_JSON } )
 public interface IProfileService

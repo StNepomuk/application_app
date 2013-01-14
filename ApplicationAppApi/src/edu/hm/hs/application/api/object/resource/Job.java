@@ -16,24 +16,22 @@ import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 import edu.hm.hs.application.api.object.AbstractRessourceObject;
 
 /**
- * Resource für den Benutzer.
+ * Resource für den Job.
  * 
  * @author Stefan Wörner
  */
-@JsonPropertyOrder( value = { "id", "username", "password" }, alphabetic = true )
+@JsonPropertyOrder( value = { "id", "name" }, alphabetic = true )
 @JsonSerialize( include = Inclusion.ALWAYS )
 @Produces( { MediaType.APPLICATION_JSON } )
 @Consumes( { MediaType.APPLICATION_JSON } )
-public class User extends AbstractRessourceObject
+public class Job extends AbstractRessourceObject
 {
 
-	private static final long serialVersionUID = 2338873171248303915L;
+	private static final long serialVersionUID = -7095283487449759982L;
 
 	private Long m_id;
 
-	private String m_username;
-
-	private String m_password;
+	private String m_name;
 
 	/**
 	 * Liefert das Attribut id.
@@ -59,49 +57,26 @@ public class User extends AbstractRessourceObject
 	}
 
 	/**
-	 * Liefert das Attribut username.
+	 * Liefert das Attribut name.
 	 * 
-	 * @return username
+	 * @return name
 	 */
-	@JsonProperty( "username" )
-	public String getUsername()
+	@JsonProperty( "name" )
+	public String getName()
 	{
-		return m_username;
+		return m_name;
 	}
 
 	/**
-	 * Setzt das Attribut username.
+	 * Setzt das Attribut name.
 	 * 
-	 * @param username
-	 *            zu setzender Wert für das Attribut username
+	 * @param name
+	 *            zu setzender Wert für das Attribut name
 	 */
-	@JsonProperty( "username" )
-	public void setUsername( String username )
+	@JsonProperty( "name" )
+	public void setName( String name )
 	{
-		m_username = username;
-	}
-
-	/**
-	 * Liefert das Attribut password.
-	 * 
-	 * @return password
-	 */
-	@JsonProperty( "password" )
-	public String getPassword()
-	{
-		return m_password;
-	}
-
-	/**
-	 * Setzt das Attribut password.
-	 * 
-	 * @param password
-	 *            zu setzender Wert für das Attribut password
-	 */
-	@JsonProperty( "password" )
-	public void setPassword( String password )
-	{
-		m_password = password;
+		m_name = name;
 	}
 
 	/**
@@ -124,7 +99,7 @@ public class User extends AbstractRessourceObject
 	public int hashCode()
 	{
 		return HashCodeBuilder.reflectionHashCode( INITIAL_NON_ZERO_ODD_NUMBER, MULTIPLIER_NON_ZERO_ODD_NUMBER, this, true,
-				User.class, getExclusionList() );
+				Job.class, getExclusionList() );
 	}
 
 	/**
@@ -135,7 +110,7 @@ public class User extends AbstractRessourceObject
 	@Override
 	public boolean equals( Object obj )
 	{
-		return EqualsBuilder.reflectionEquals( this, obj, true, User.class, getExclusionList() );
+		return EqualsBuilder.reflectionEquals( this, obj, true, Job.class, getExclusionList() );
 	}
 
 	/**
@@ -149,7 +124,7 @@ public class User extends AbstractRessourceObject
 		ReflectionToStringBuilder rsb = new ReflectionToStringBuilder( this, ToStringStyle.SHORT_PREFIX_STYLE );
 		rsb.setAppendStatics( false );
 		rsb.setAppendTransients( true );
-		rsb.setUpToClass( User.class );
+		rsb.setUpToClass( Job.class );
 		rsb.setExcludeFieldNames( getExclusionList() );
 		return rsb.toString();
 	}

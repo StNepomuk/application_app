@@ -21,7 +21,7 @@ import edu.hm.hs.application.api.object.resource.User;
  * @author Stefan Wörner
  */
 @Local
-@Path( "/user" )
+@Path( "/users" )
 @Produces( { MediaType.APPLICATION_JSON } )
 @Consumes( { MediaType.APPLICATION_JSON } )
 public interface IUserService

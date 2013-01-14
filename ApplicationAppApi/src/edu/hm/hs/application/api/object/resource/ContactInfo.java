@@ -22,7 +22,7 @@ import edu.hm.hs.application.api.object.enumeration.ContactType;
  * @author Stefan Wörner
  */
 @JsonPropertyOrder( value = { "id", "type", "value" }, alphabetic = true )
-@JsonSerialize( include = Inclusion.NON_NULL )
+@JsonSerialize( include = Inclusion.ALWAYS )
 @Produces( { MediaType.APPLICATION_JSON } )
 @Consumes( { MediaType.APPLICATION_JSON } )
 public class ContactInfo extends AbstractRessourceObject

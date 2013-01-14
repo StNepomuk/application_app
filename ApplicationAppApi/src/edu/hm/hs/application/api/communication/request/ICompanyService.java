@@ -21,7 +21,7 @@ import edu.hm.hs.application.api.object.resource.Company;
  * @author Stefan Wörner
  */
 @Local
-@Path( "/company" )
+@Path( "/companies" )
 @Produces( { MediaType.APPLICATION_JSON } )
 @Consumes( { MediaType.APPLICATION_JSON } )
 public interface ICompanyService

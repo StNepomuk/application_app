@@ -21,7 +21,7 @@ import edu.hm.hs.application.api.object.resource.ContactInfo;
  * @author Stefan Wörner
  */
 @Local
-@Path( "/user/{user_id}/profile/contactinfos" )
+@Path( "/users/{user_id}/profile/contactinfos" )
 @Produces( { MediaType.APPLICATION_JSON } )
 @Consumes( { MediaType.APPLICATION_JSON } )
 public interface IContactInfoService

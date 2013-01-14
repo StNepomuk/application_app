@@ -67,7 +67,8 @@ public class CompanyDAOBean extends AbstractBean implements ICompanyDAOLocal
 	@Override
 	public EntityCompany update( EntityCompany company )
 	{
-		return m_em.merge( company );
+		company = m_em.merge( company );
+		return company;
 	}
 
 	/**

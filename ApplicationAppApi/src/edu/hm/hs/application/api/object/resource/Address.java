@@ -21,7 +21,7 @@ import edu.hm.hs.application.api.object.AbstractRessourceObject;
  * @author Stefan Wörner
  */
 @JsonPropertyOrder( value = { "id", "street", "houseNumber", "zipCode", "city" }, alphabetic = true )
-@JsonSerialize( include = Inclusion.NON_NULL )
+@JsonSerialize( include = Inclusion.ALWAYS )
 @Produces( { MediaType.APPLICATION_JSON } )
 @Consumes( { MediaType.APPLICATION_JSON } )
 public class Address extends AbstractRessourceObject

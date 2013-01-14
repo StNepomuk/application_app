@@ -1,6 +1,7 @@
 package edu.hm.hs.application.internal.object.entity;
 
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -42,13 +43,21 @@ public class EntityJob extends AbstractEntityObject
 	private String m_name;
 
 	// Bidirektionale n:1 Beziehung (Besitzende Seite)
-	@ManyToOne( cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, optional = false )
-	@JoinColumn( name = "company_id", nullable = false )
+	@ManyToOne( fetch = FetchType.LAZY, optional = false )
+	@JoinColumn( name = "company_id" )
 	private EntityCompany m_company;
 
 	// Bidirektionale 1:n Beziehung (Inverse Seite)
 	@OneToMany( cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "m_job" )
-	private Collection<EntityApplication> m_applications;
+	private List<EntityApplication> m_applications;
+
+	/**
+	 * Standardkonstruktor.
+	 */
+	public EntityJob()
+	{
+		m_applications = new ArrayList<EntityApplication>();
+	}
 
 	/**
 	 * Liefert das Attribut id.
@@ -118,7 +127,7 @@ public class EntityJob extends AbstractEntityObject
 	 * 
 	 * @return applications
 	 */
-	public Collection<EntityApplication> getApplications()
+	public List<EntityApplication> getApplications()
 	{
 		return m_applications;
 	}
@@ -129,7 +138,7 @@ public class EntityJob extends AbstractEntityObject
 	 * @param applications
 	 *            zu setzender Wert für das Attribut applications
 	 */
-	public void setApplications( Collection<EntityApplication> applications )
+	public void setApplications( List<EntityApplication> applications )
 	{
 		m_applications = applications;
 	}

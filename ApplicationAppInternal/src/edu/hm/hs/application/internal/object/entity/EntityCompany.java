@@ -1,7 +1,10 @@
 package edu.hm.hs.application.internal.object.entity;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -39,8 +42,16 @@ public class EntityCompany extends AbstractEntityObject
 	private String m_name;
 
 	// Bidirektionale 1:n Beziehung (Inverse Seite)
-	@OneToMany( mappedBy = "m_company", orphanRemoval = true, fetch = FetchType.LAZY )
+	@OneToMany( cascade = CascadeType.ALL, mappedBy = "m_company", orphanRemoval = true, fetch = FetchType.LAZY )
 	private List<EntityJob> m_jobs;
+
+	/**
+	 * Standardkonstruktor.
+	 */
+	public EntityCompany()
+	{
+		m_jobs = new ArrayList<EntityJob>();
+	}
 
 	/**
 	 * Liefert das Attribut id.
@@ -115,6 +126,36 @@ public class EntityCompany extends AbstractEntityObject
 	{
 		job.setCompany( this );
 		m_jobs.add( job );
+	}
+
+	/**
+	 * Liefert den passenden Job.
+	 * 
+	 * @param jobId
+	 *            Gesuchter Job
+	 * @return Job
+	 */
+	public EntityJob getJob( Long jobId )
+	{
+		Iterator<EntityJob> iterator = m_jobs.iterator();
+
+		while (iterator.hasNext())
+		{
+			EntityJob contJob = iterator.next();
+			try
+			{
+				if (contJob.getId().equals( jobId ))
+				{
+					return contJob;
+				}
+			}
+			catch (NullPointerException e)
+			{
+				continue;
+			}
+		}
+
+		return null;
 	}
 
 	/**

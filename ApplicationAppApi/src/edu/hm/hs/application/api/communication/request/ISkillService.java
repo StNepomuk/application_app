@@ -21,7 +21,7 @@ import edu.hm.hs.application.api.object.resource.Skill;
  * @author Stefan Wörner
  */
 @Local
-@Path( "/user/{user_id}/profile/skills" )
+@Path( "/users/{user_id}/profile/skills" )
 @Produces( { MediaType.APPLICATION_JSON } )
 @Consumes( { MediaType.APPLICATION_JSON } )
 public interface ISkillService

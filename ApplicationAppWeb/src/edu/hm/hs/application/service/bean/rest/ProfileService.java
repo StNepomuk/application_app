@@ -23,7 +23,7 @@ import edu.hm.hs.application.internal.object.entity.EntitySkill;
 import edu.hm.hs.application.internal.object.entity.EntityUser;
 
 /**
- * REST-Service für den Benutzer.
+ * REST-Service für den Benutzer-Profil.
  * 
  * @author Stefan Wörner
  */

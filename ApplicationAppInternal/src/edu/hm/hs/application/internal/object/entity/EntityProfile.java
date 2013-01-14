@@ -1,9 +1,9 @@
 package edu.hm.hs.application.internal.object.entity;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -87,27 +87,27 @@ public class EntityProfile extends AbstractEntityObject
 	@JoinTable( name = "profile_skills",
 				joinColumns = @JoinColumn( name = "profile_id" ),
 				inverseJoinColumns = @JoinColumn( name = "skill_id" ) )
-	private Collection<EntitySkill> m_skills;
+	private List<EntitySkill> m_skills;
 
 	// Unidirektionale 1:n Beziehung
 	@OneToMany( cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY )
 	@JoinTable( name = "profile_contact_infos",
 				joinColumns = @JoinColumn( name = "profile_id" ),
 				inverseJoinColumns = @JoinColumn( name = "contact_info_id" ) )
-	private Collection<EntityContactInfo> m_contactInfos;
+	private List<EntityContactInfo> m_contactInfos;
 
 	// Bidirektionale 1:n Beziehung (Inverse Seite)
 	@OneToMany( cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "m_profile" )
-	private Collection<EntityApplication> m_applications;
+	private List<EntityApplication> m_applications;
 
 	/**
 	 * Standardkonstruktor.
 	 */
 	public EntityProfile()
 	{
-		m_applications = new HashSet<EntityApplication>();
-		m_contactInfos = new HashSet<EntityContactInfo>();
-		m_skills = new HashSet<EntitySkill>();
+		m_applications = new ArrayList<EntityApplication>();
+		m_contactInfos = new ArrayList<EntityContactInfo>();
+		m_skills = new ArrayList<EntitySkill>();
 	}
 
 	/**
@@ -283,7 +283,7 @@ public class EntityProfile extends AbstractEntityObject
 	 * 
 	 * @return skills
 	 */
-	public Collection<EntitySkill> getSkills()
+	public List<EntitySkill> getSkills()
 	{
 		return m_skills;
 	}
@@ -294,7 +294,7 @@ public class EntityProfile extends AbstractEntityObject
 	 * @param skills
 	 *            zu setzender Wert für das Attribut skills
 	 */
-	public void setSkills( Collection<EntitySkill> skills )
+	public void setSkills( List<EntitySkill> skills )
 	{
 		m_skills = skills;
 	}
@@ -390,7 +390,7 @@ public class EntityProfile extends AbstractEntityObject
 	 * 
 	 * @return contactInfos
 	 */
-	public Collection<EntityContactInfo> getContactInfos()
+	public List<EntityContactInfo> getContactInfos()
 	{
 		return m_contactInfos;
 	}
@@ -401,7 +401,7 @@ public class EntityProfile extends AbstractEntityObject
 	 * @param contactInfos
 	 *            zu setzender Wert für das Attribut contactInfos
 	 */
-	public void setContactInfos( Collection<EntityContactInfo> contactInfos )
+	public void setContactInfos( List<EntityContactInfo> contactInfos )
 	{
 		m_contactInfos = contactInfos;
 	}
@@ -497,7 +497,7 @@ public class EntityProfile extends AbstractEntityObject
 	 * 
 	 * @return applications
 	 */
-	public Collection<EntityApplication> getApplications()
+	public List<EntityApplication> getApplications()
 	{
 		return m_applications;
 	}
@@ -508,7 +508,7 @@ public class EntityProfile extends AbstractEntityObject
 	 * @param applications
 	 *            zu setzender Wert für das Attribut applications
 	 */
-	public void setApplications( Collection<EntityApplication> applications )
+	public void setApplications( List<EntityApplication> applications )
 	{
 		m_applications = applications;
 	}
