@@ -1,4 +1,4 @@
-package edu.hm.sisy.ssma.internal.interceptor;
+package edu.hm.hs.application.internal.interceptor;
 
 import java.util.Arrays;
 import java.util.Date;

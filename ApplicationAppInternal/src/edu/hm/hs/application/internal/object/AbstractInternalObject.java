@@ -1,4 +1,4 @@
-package edu.hm.sisy.ssma.internal.object;
+package edu.hm.hs.application.internal.object;
 
 import edu.hm.basic.object.AbstractBasicObject;
 

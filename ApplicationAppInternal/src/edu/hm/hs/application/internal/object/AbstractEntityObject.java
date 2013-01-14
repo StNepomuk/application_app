@@ -1,4 +1,4 @@
-package edu.hm.sisy.ssma.internal.object;
+package edu.hm.hs.application.internal.object;
 
 /**
  * Abstrakte Basisklasse für alle Entity Objekte.

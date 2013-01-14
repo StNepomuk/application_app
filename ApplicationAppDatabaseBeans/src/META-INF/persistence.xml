@@ -6,16 +6,15 @@
 	<persistence-unit name="ApplicationAppManager" transaction-type="JTA">
 		<description>ApplicationApp Persistence Unit.</description>
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<jta-data-source>java:jdbc/SsmAppDS</jta-data-source>
+		<jta-data-source>java:jdbc/ApplicationAppDS</jta-data-source>
 		<jar-file>ApplicationAppInternal.jar</jar-file>
 		<properties>
 			<property name="javax.persistence.lock.timeout" value="5000" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
-			<property name="hibernate.hbm2ddl.auto" value="update" />
-			<!-- 
+			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
+			<!--<property name="hibernate.hbm2ddl.auto" value="update" />-->
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.show_sql" value="true" /> 
-			-->
 		</properties>
 	</persistence-unit>
 
