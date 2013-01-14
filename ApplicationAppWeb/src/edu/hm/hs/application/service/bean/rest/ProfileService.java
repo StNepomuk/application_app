@@ -9,13 +9,17 @@ import org.jboss.resteasy.spi.NotFoundException;
 
 import edu.hm.hs.application.api.communication.request.IProfileService;
 import edu.hm.hs.application.api.object.resource.Address;
+import edu.hm.hs.application.api.object.resource.ContactInfo;
 import edu.hm.hs.application.api.object.resource.Profile;
+import edu.hm.hs.application.api.object.resource.Skill;
 import edu.hm.hs.application.internal.bean.AbstractBean;
 import edu.hm.hs.application.internal.bean.database.IProfileDAOLocal;
 import edu.hm.hs.application.internal.bean.database.IUserDAOLocal;
 import edu.hm.hs.application.internal.interceptor.LoggingInterceptor;
 import edu.hm.hs.application.internal.object.entity.EntityAddress;
+import edu.hm.hs.application.internal.object.entity.EntityContactInfo;
 import edu.hm.hs.application.internal.object.entity.EntityProfile;
+import edu.hm.hs.application.internal.object.entity.EntitySkill;
 import edu.hm.hs.application.internal.object.entity.EntityUser;
 
 /**
@@ -41,13 +45,13 @@ public class ProfileService extends AbstractBean implements IProfileService
 	 *      edu.hm.hs.application.api.object.resource.Profile)
 	 */
 	@Override
-	public Profile create( long id, Profile profile )
+	public Profile create( long userId, Profile profile )
 	{
-		EntityUser eUser = m_userDAOBean.read( id );
+		EntityUser eUser = m_userDAOBean.read( userId );
 
 		if (eUser == null)
 		{
-			throw new NotFoundException( "user with id:" + id );
+			throw new NotFoundException( "user with userId:" + userId );
 		}
 
 		if (eUser.getProfile() != null)
@@ -73,22 +77,22 @@ public class ProfileService extends AbstractBean implements IProfileService
 			eProfile.setAddress( eAddress );
 		}
 
-		// for (Skill skill : profile.getSkills())
-		// {
-		// EntitySkill eSkill = new EntitySkill();
-		// eSkill.setName( skill.getValue() );
-		//
-		// eProfile.addSkill( eSkill );
-		// }
-		//
-		// for (ContactInfo contactInfo : profile.getContactInfos())
-		// {
-		// EntityContactInfo eContactInfo = new EntityContactInfo();
-		// eContactInfo.setType( contactInfo.getType() );
-		// eContactInfo.setName( contactInfo.getValue() );
-		//
-		// eProfile.addContactInfo( eContactInfo );
-		// }
+		for (Skill skill : profile.getSkills())
+		{
+			EntitySkill eSkill = new EntitySkill();
+			eSkill.setName( skill.getValue() );
+
+			eProfile.addSkill( eSkill );
+		}
+
+		for (ContactInfo contactInfo : profile.getContactInfos())
+		{
+			EntityContactInfo eContactInfo = new EntityContactInfo();
+			eContactInfo.setType( contactInfo.getType() );
+			eContactInfo.setName( contactInfo.getValue() );
+
+			eProfile.addContactInfo( eContactInfo );
+		}
 
 		eProfile = m_profileDAOBean.create( eProfile );
 
@@ -111,24 +115,24 @@ public class ProfileService extends AbstractBean implements IProfileService
 			profile.setAddress( address );
 		}
 
-		// for (EntitySkill eSkill : eProfile.getSkills())
-		// {
-		// Skill skill = new Skill();
-		// skill.setId( eSkill.getId() );
-		// skill.setValue( eSkill.getName() );
-		//
-		// profile.addSkill( skill );
-		// }
-		//
-		// for (EntityContactInfo eContactInfo : eProfile.getContactInfos())
-		// {
-		// ContactInfo contactInfo = new ContactInfo();
-		// contactInfo.setId( eContactInfo.getId() );
-		// contactInfo.setType( eContactInfo.getType() );
-		// contactInfo.setValue( eContactInfo.getName() );
-		//
-		// profile.addContactInfo( contactInfo );
-		// }
+		for (EntitySkill eSkill : eProfile.getSkills())
+		{
+			Skill skill = new Skill();
+			skill.setId( eSkill.getId() );
+			skill.setValue( eSkill.getName() );
+
+			profile.addSkill( skill );
+		}
+
+		for (EntityContactInfo eContactInfo : eProfile.getContactInfos())
+		{
+			ContactInfo contactInfo = new ContactInfo();
+			contactInfo.setId( eContactInfo.getId() );
+			contactInfo.setType( eContactInfo.getType() );
+			contactInfo.setValue( eContactInfo.getName() );
+
+			profile.addContactInfo( contactInfo );
+		}
 
 		return profile;
 	}
@@ -139,18 +143,18 @@ public class ProfileService extends AbstractBean implements IProfileService
 	 * @see edu.hm.hs.application.api.communication.request.IProfileService#find(long)
 	 */
 	@Override
-	public Profile find( long id )
+	public Profile find( long userId )
 	{
-		EntityUser eUser = m_userDAOBean.read( id );
+		EntityUser eUser = m_userDAOBean.read( userId );
 
 		if (eUser == null)
 		{
-			throw new NotFoundException( "user with id:" + id );
+			throw new NotFoundException( "user with userId:" + userId );
 		}
 
 		if (eUser.getProfile() == null)
 		{
-			throw new NotFoundException( "profile for user with id:" + id );
+			throw new NotFoundException( "profile for user with userId:" + userId );
 		}
 
 		EntityProfile eProfile = eUser.getProfile();
@@ -174,24 +178,24 @@ public class ProfileService extends AbstractBean implements IProfileService
 			profile.setAddress( address );
 		}
 
-		// for (EntitySkill eSkill : eProfile.getSkills())
-		// {
-		// Skill skill = new Skill();
-		// skill.setId( eSkill.getId() );
-		// skill.setValue( eSkill.getName() );
-		//
-		// profile.addSkill( skill );
-		// }
-		//
-		// for (EntityContactInfo eContactInfo : eProfile.getContactInfos())
-		// {
-		// ContactInfo contactInfo = new ContactInfo();
-		// contactInfo.setId( eContactInfo.getId() );
-		// contactInfo.setType( eContactInfo.getType() );
-		// contactInfo.setValue( eContactInfo.getName() );
-		//
-		// profile.addContactInfo( contactInfo );
-		// }
+		for (EntitySkill eSkill : eProfile.getSkills())
+		{
+			Skill skill = new Skill();
+			skill.setId( eSkill.getId() );
+			skill.setValue( eSkill.getName() );
+
+			profile.addSkill( skill );
+		}
+
+		for (EntityContactInfo eContactInfo : eProfile.getContactInfos())
+		{
+			ContactInfo contactInfo = new ContactInfo();
+			contactInfo.setId( eContactInfo.getId() );
+			contactInfo.setType( eContactInfo.getType() );
+			contactInfo.setValue( eContactInfo.getName() );
+
+			profile.addContactInfo( contactInfo );
+		}
 
 		return profile;
 	}
@@ -203,18 +207,18 @@ public class ProfileService extends AbstractBean implements IProfileService
 	 *      edu.hm.hs.application.api.object.resource.Profile)
 	 */
 	@Override
-	public Profile update( long id, Profile profile )
+	public Profile update( long userId, Profile profile )
 	{
-		EntityUser eUser = m_userDAOBean.read( id );
+		EntityUser eUser = m_userDAOBean.read( userId );
 
 		if (eUser == null)
 		{
-			throw new NotFoundException( "user with id:" + id );
+			throw new NotFoundException( "user with userId:" + userId );
 		}
 
 		if (eUser.getProfile() == null)
 		{
-			throw new NotFoundException( "profile for user with id:" + id );
+			throw new NotFoundException( "profile for user with userId:" + userId );
 		}
 
 		EntityProfile eProfile = eUser.getProfile();
@@ -243,36 +247,22 @@ public class ProfileService extends AbstractBean implements IProfileService
 			eProfile.setAddress( null );
 		}
 
-		// if (profile.getSkills().size() == 0)
-		// {
-		// eProfile.removeAllSkills();
-		// }
-		// else
-		// {
-		// eProfile.removeAllSkills();
-		//
-		// for (Skill skill : profile.getSkills())
-		// {
-		// EntitySkill eSkill = new EntitySkill();
-		// eSkill.setName( skill.getValue() );
-		//
-		// eProfile.addSkill( eSkill );
-		// }
-		// }
-		//
-		// if (profile.getContactInfos().size() == 0)
-		// {
-		// eProfile.removeAllContactInfos();
-		// }
-		//
-		// for (ContactInfo contactInfo : profile.getContactInfos())
-		// {
-		// EntityContactInfo eContactInfo = new EntityContactInfo();
-		// eContactInfo.setType( contactInfo.getType() );
-		// eContactInfo.setName( contactInfo.getValue() );
-		//
-		// eProfile.addContactInfo( eContactInfo );
-		// }
+		for (Skill skill : profile.getSkills())
+		{
+			EntitySkill eSkill = new EntitySkill();
+			eSkill.setName( skill.getValue() );
+
+			eProfile.addSkill( eSkill );
+		}
+
+		for (ContactInfo contactInfo : profile.getContactInfos())
+		{
+			EntityContactInfo eContactInfo = new EntityContactInfo();
+			eContactInfo.setType( contactInfo.getType() );
+			eContactInfo.setName( contactInfo.getValue() );
+
+			eProfile.addContactInfo( eContactInfo );
+		}
 
 		m_profileDAOBean.update( eProfile );
 
@@ -295,24 +285,24 @@ public class ProfileService extends AbstractBean implements IProfileService
 			profile.setAddress( address );
 		}
 
-		// for (EntitySkill eSkill : eProfile.getSkills())
-		// {
-		// Skill skill = new Skill();
-		// skill.setId( eSkill.getId() );
-		// skill.setValue( eSkill.getName() );
-		//
-		// profile.addSkill( skill );
-		// }
-		//
-		// for (EntityContactInfo eContactInfo : eProfile.getContactInfos())
-		// {
-		// ContactInfo contactInfo = new ContactInfo();
-		// contactInfo.setId( eContactInfo.getId() );
-		// contactInfo.setType( eContactInfo.getType() );
-		// contactInfo.setValue( eContactInfo.getName() );
-		//
-		// profile.addContactInfo( contactInfo );
-		// }
+		for (EntitySkill eSkill : eProfile.getSkills())
+		{
+			Skill skill = new Skill();
+			skill.setId( eSkill.getId() );
+			skill.setValue( eSkill.getName() );
+
+			profile.addSkill( skill );
+		}
+
+		for (EntityContactInfo eContactInfo : eProfile.getContactInfos())
+		{
+			ContactInfo contactInfo = new ContactInfo();
+			contactInfo.setId( eContactInfo.getId() );
+			contactInfo.setType( eContactInfo.getType() );
+			contactInfo.setValue( eContactInfo.getName() );
+
+			profile.addContactInfo( contactInfo );
+		}
 
 		return profile;
 	}
@@ -323,18 +313,18 @@ public class ProfileService extends AbstractBean implements IProfileService
 	 * @see edu.hm.hs.application.api.communication.request.IProfileService#remove(long)
 	 */
 	@Override
-	public void remove( long id )
+	public void remove( long userId )
 	{
-		EntityUser eUser = m_userDAOBean.read( id );
+		EntityUser eUser = m_userDAOBean.read( userId );
 
 		if (eUser == null)
 		{
-			throw new NotFoundException( "user with id:" + id );
+			throw new NotFoundException( "user with userId:" + userId );
 		}
 
 		if (eUser.getProfile() == null)
 		{
-			throw new NotFoundException( "profile for user with id:" + id );
+			throw new NotFoundException( "profile for user with userId:" + userId );
 		}
 
 		m_profileDAOBean.delete( eUser.getProfile() );

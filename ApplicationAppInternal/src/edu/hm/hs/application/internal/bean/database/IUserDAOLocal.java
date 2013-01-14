@@ -25,7 +25,7 @@ public interface IUserDAOLocal
 	EntityUser create( EntityUser user );
 
 	/**
-	 * Liest einen Benutzer anhand des Benutzernamens aus der Datenbank aus.
+	 * Liest einen Benutzer anhand der Benutzerid aus der Datenbank aus.
 	 * 
 	 * @param id
 	 *            Benutzerid

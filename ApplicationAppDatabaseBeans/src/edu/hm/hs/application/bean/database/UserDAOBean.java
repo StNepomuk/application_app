@@ -6,6 +6,7 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import edu.hm.hs.application.internal.bean.AbstractBean;
@@ -33,7 +34,27 @@ public class UserDAOBean extends AbstractBean implements IUserDAOLocal
 	@Override
 	public EntityUser create( EntityUser user )
 	{
-		m_em.persist( user );
+		EntityUser exUser;
+		try
+		{
+			exUser = m_em.createQuery( "FROM User u WHERE u.m_username = :username", EntityUser.class )
+					.setParameter( "username", user.getUsername() ).getSingleResult();
+		}
+		catch (NoResultException ex)
+		{
+			exUser = null;
+		}
+
+		if (exUser == null)
+		{
+			m_em.persist( user );
+		}
+		else
+		{
+			user.setId( exUser.getId() );
+			user = m_em.merge( user );
+		}
+
 		return user;
 	}
 
@@ -56,7 +77,7 @@ public class UserDAOBean extends AbstractBean implements IUserDAOLocal
 	@Override
 	public List<EntityUser> readAll()
 	{
-		return m_em.createQuery( "SELECT u FROM EntityUser u", EntityUser.class ).getResultList();
+		return m_em.createQuery( "FROM User", EntityUser.class ).getResultList();
 	}
 
 	/**
@@ -67,7 +88,7 @@ public class UserDAOBean extends AbstractBean implements IUserDAOLocal
 	@Override
 	public EntityUser update( EntityUser user )
 	{
-		return m_em.merge( user );
+		return create( user );
 	}
 
 	/**
@@ -80,5 +101,4 @@ public class UserDAOBean extends AbstractBean implements IUserDAOLocal
 	{
 		m_em.remove( user );
 	}
-
 }

@@ -1,6 +1,8 @@
 package edu.hm.hs.application.api.object.resource;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
@@ -47,17 +49,17 @@ public class Profile extends AbstractRessourceObject
 
 	private Address m_address;
 
-	// private List<Skill> m_skills;
-	//
-	// private List<ContactInfo> m_contactInfos;
+	private List<Skill> m_skills;
+
+	private List<ContactInfo> m_contactInfos;
 
 	/**
 	 * Standardkonstruktor.
 	 */
 	public Profile()
 	{
-		// m_skills = new ArrayList<Skill>();
-		// m_contactInfos = new ArrayList<ContactInfo>();
+		m_skills = new ArrayList<Skill>();
+		m_contactInfos = new ArrayList<ContactInfo>();
 	}
 
 	/**
@@ -221,95 +223,95 @@ public class Profile extends AbstractRessourceObject
 		m_address = address;
 	}
 
-	// /**
-	// * Liefert das Attribut skills.
-	// *
-	// * @return skills
-	// */
-	// @JsonProperty( "skills" )
-	// public List<Skill> getSkills()
-	// {
-	// return m_skills;
-	// }
-	//
-	// /**
-	// * Setzt das Attribut skills.
-	// *
-	// * @param skills
-	// * zu setzender Wert für das Attribut skills
-	// */
-	// @JsonProperty( "skills" )
-	// public void setSkills( List<Skill> skills )
-	// {
-	// m_skills = skills;
-	// }
-	//
-	// /**
-	// * Fügt einen Skill hinzu.
-	// *
-	// * @param skill
-	// * Hinzuzufügender Skill
-	// */
-	// public void addSkill( Skill skill )
-	// {
-	// m_skills.add( skill );
-	// }
-	//
-	// /**
-	// * Löscht den Skill.
-	// *
-	// * @param skill
-	// * Zu löschender Skill
-	// */
-	// public void removeSkill( Skill skill )
-	// {
-	// m_skills.remove( skill );
-	// }
-	//
-	// /**
-	// * Liefert das Attribut contactInfos.
-	// *
-	// * @return contactInfos
-	// */
-	// @JsonProperty( "contactInfos" )
-	// public List<ContactInfo> getContactInfos()
-	// {
-	// return m_contactInfos;
-	// }
-	//
-	// /**
-	// * Setzt das Attribut contactInfos.
-	// *
-	// * @param contactInfos
-	// * zu setzender Wert für das Attribut contactInfos
-	// */
-	// @JsonProperty( "contactInfos" )
-	// public void setContactInfos( List<ContactInfo> contactInfos )
-	// {
-	// m_contactInfos = contactInfos;
-	// }
-	//
-	// /**
-	// * Fügt eine Kontakt-Info hinzu.
-	// *
-	// * @param contactInfo
-	// * Hinzuzufügende Kontakt-Info
-	// */
-	// public void addContactInfo( ContactInfo contactInfo )
-	// {
-	// m_contactInfos.add( contactInfo );
-	// }
-	//
-	// /**
-	// * Löscht die Kontakt-Info.
-	// *
-	// * @param contactInfo
-	// * Zu löschende Kontakt-Info
-	// */
-	// public void removeContactInfo( ContactInfo contactInfo )
-	// {
-	// m_contactInfos.remove( contactInfo );
-	// }
+	/**
+	 * Liefert das Attribut skills.
+	 * 
+	 * @return skills
+	 */
+	@JsonProperty( "skills" )
+	public List<Skill> getSkills()
+	{
+		return m_skills;
+	}
+
+	/**
+	 * Setzt das Attribut skills.
+	 * 
+	 * @param skills
+	 *            zu setzender Wert für das Attribut skills
+	 */
+	@JsonProperty( "skills" )
+	public void setSkills( List<Skill> skills )
+	{
+		m_skills = skills;
+	}
+
+	/**
+	 * Fügt einen Skill hinzu.
+	 * 
+	 * @param skill
+	 *            Hinzuzufügender Skill
+	 */
+	public void addSkill( Skill skill )
+	{
+		m_skills.add( skill );
+	}
+
+	/**
+	 * Löscht den Skill.
+	 * 
+	 * @param skill
+	 *            Zu löschender Skill
+	 */
+	public void removeSkill( Skill skill )
+	{
+		m_skills.remove( skill );
+	}
+
+	/**
+	 * Liefert das Attribut contactInfos.
+	 * 
+	 * @return contactInfos
+	 */
+	@JsonProperty( "contactInfos" )
+	public List<ContactInfo> getContactInfos()
+	{
+		return m_contactInfos;
+	}
+
+	/**
+	 * Setzt das Attribut contactInfos.
+	 * 
+	 * @param contactInfos
+	 *            zu setzender Wert für das Attribut contactInfos
+	 */
+	@JsonProperty( "contactInfos" )
+	public void setContactInfos( List<ContactInfo> contactInfos )
+	{
+		m_contactInfos = contactInfos;
+	}
+
+	/**
+	 * Fügt eine Kontakt-Info hinzu.
+	 * 
+	 * @param contactInfo
+	 *            Hinzuzufügende Kontakt-Info
+	 */
+	public void addContactInfo( ContactInfo contactInfo )
+	{
+		m_contactInfos.add( contactInfo );
+	}
+
+	/**
+	 * Löscht die Kontakt-Info.
+	 * 
+	 * @param contactInfo
+	 *            Zu löschende Kontakt-Info
+	 */
+	public void removeContactInfo( ContactInfo contactInfo )
+	{
+		m_contactInfos.remove( contactInfo );
+	}
 
 	/**
 	 * {@inheritDoc}

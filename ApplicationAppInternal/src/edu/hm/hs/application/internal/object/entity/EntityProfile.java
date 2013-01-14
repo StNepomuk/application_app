@@ -3,6 +3,7 @@ package edu.hm.hs.application.internal.object.entity;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -313,6 +314,59 @@ public class EntityProfile extends AbstractEntityObject
 	}
 
 	/**
+	 * Liefert den passenden Skill.
+	 * 
+	 * @param skill
+	 *            Gesuchter Skill
+	 * @return Skill
+	 */
+	public EntitySkill getSkill( EntitySkill skill )
+	{
+		Iterator<EntitySkill> iterator = m_skills.iterator();
+
+		while (iterator.hasNext())
+		{
+			EntitySkill contSkill = iterator.next();
+			if (contSkill.equals( skill ))
+			{
+				return contSkill;
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * Liefert den passenden Skill.
+	 * 
+	 * @param skillId
+	 *            Gesuchter Skill
+	 * @return Skill
+	 */
+	public EntitySkill getSkill( Long skillId )
+	{
+		Iterator<EntitySkill> iterator = m_skills.iterator();
+
+		while (iterator.hasNext())
+		{
+			EntitySkill contSkill = iterator.next();
+			try
+			{
+				if (contSkill.getId().equals( skillId ))
+				{
+					return contSkill;
+				}
+			}
+			catch (NullPointerException e)
+			{
+				continue;
+			}
+		}
+
+		return null;
+	}
+
+	/**
 	 * Löscht den Skill.
 	 * 
 	 * @param skill
@@ -360,7 +414,63 @@ public class EntityProfile extends AbstractEntityObject
 	 */
 	public void addContactInfo( EntityContactInfo contactInfo )
 	{
-		m_contactInfos.add( contactInfo );
+		if (!m_contactInfos.contains( contactInfo ))
+		{
+			m_contactInfos.add( contactInfo );
+		}
+	}
+
+	/**
+	 * Liefert den passenden ContactInfo.
+	 * 
+	 * @param contactInfo
+	 *            Gesuchter ContactInfo
+	 * @return ContactInfo
+	 */
+	public EntityContactInfo getContactInfo( EntityContactInfo contactInfo )
+	{
+		Iterator<EntityContactInfo> iterator = m_contactInfos.iterator();
+
+		while (iterator.hasNext())
+		{
+			EntityContactInfo contContactInfo = iterator.next();
+			if (contContactInfo.equals( contactInfo ))
+			{
+				return contContactInfo;
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * Liefert den passenden ContactInfo.
+	 * 
+	 * @param contactInfoId
+	 *            Gesuchter ContactInfo
+	 * @return ContactInfo
+	 */
+	public EntityContactInfo getContactInfo( Long contactInfoId )
+	{
+		Iterator<EntityContactInfo> iterator = m_contactInfos.iterator();
+
+		while (iterator.hasNext())
+		{
+			EntityContactInfo contContactInfo = iterator.next();
+			try
+			{
+				if (contContactInfo.getId().equals( contactInfoId ))
+				{
+					return contContactInfo;
+				}
+			}
+			catch (NullPointerException e)
+			{
+				continue;
+			}
+		}
+
+		return null;
 	}
 
 	/**

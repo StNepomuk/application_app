@@ -23,7 +23,7 @@ public interface IProfileDAOLocal
 	EntityProfile create( EntityProfile profile );
 
 	/**
-	 * Liest ein Benutzer-Profil anhand des Benutzer-Profilnamens aus der Datenbank aus.
+	 * Liest ein Benutzer-Profil anhand der Benutzer-Profilid aus der Datenbank aus.
 	 * 
 	 * @param id
 	 *            Benutzer-Profilid

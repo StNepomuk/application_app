@@ -36,13 +36,28 @@ public final class ErrorConstants
 	 */
 	public static final String ILLEGAL_EMAIL_ADDRESS_ERROR_MSG = "Bitte geben Sie eine gültige eMail-Adresse an.";
 
+	/**
+	 * Fehlermeldung für nicht gesetzte Straße.
+	 */
 	public static final String STREET_EMPTY_ERROR_MSG = "Bitte geben Sie Ihre Straße an.";
 
+	/**
+	 * Fehlermeldung für nicht gesetzte Hausnummer.
+	 */
 	public static final String HOUSENUMBER_EMPTY_ERROR_MSG = "Bitte geben Sie Ihre Hausnummer an.";
 
+	/**
+	 * Fehlermeldung für nicht gesetzte PLZ.
+	 */
 	public static final String ZIPCODE_EMPTY_ERROR_MSG = "Bitte geben Sie Ihre Postleitzahl an.";
 
+	/**
+	 * Fehlermeldung für nungültige PLZ.
+	 */
 	public static final String ZIPCODE_LENGHT_ERROR_MSG = "Bitte geben Sie eine gültige Postleitzahl an.";
 
+	/**
+	 * Fehlermeldung für nicht gesetzte Stadt.
+	 */
 	public static final String CITY_EMPTY_ERROR_MSG = "Bitte geben Sie Ihre Stadt an.";
 }

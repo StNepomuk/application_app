@@ -11,7 +11,7 @@ import edu.hm.hs.application.internal.bean.database.IProfileDAOLocal;
 import edu.hm.hs.application.internal.object.entity.EntityProfile;
 
 /**
- * Bean für den Datenbankzugriff auf die User Entität.
+ * Bean für den Datenbankzugriff auf die Profile Entität.
  * 
  * @author Stefan Wörner
  */
@@ -67,5 +67,4 @@ public class ProfileDAOBean extends AbstractBean implements IProfileDAOLocal
 	{
 		m_em.remove( profile );
 	}
-
 }

@@ -28,7 +28,7 @@ public interface IProfileService
 	/**
 	 * Erzeugt ein neues Benutzer-Profil-Objekt.
 	 * 
-	 * @param id
+	 * @param userId
 	 *            Benutzeridentifikator
 	 * @param profile
 	 *            Benutzer-Profil
@@ -36,23 +36,23 @@ public interface IProfileService
 	 */
 	@POST
 	@Path( "" )
-	Profile create( @PathParam( "user_id" ) long id, Profile profile );
+	Profile create( @PathParam( "user_id" ) long userId, Profile profile );
 
 	/**
 	 * Liefert Benutzer-Profil.
 	 * 
-	 * @param id
+	 * @param userId
 	 *            Benutzeridentifikator
 	 * @return Benutzer-Profil
 	 */
 	@GET
 	@Path( "" )
-	Profile find( @PathParam( "user_id" ) long id );
+	Profile find( @PathParam( "user_id" ) long userId );
 
 	/**
 	 * Überschreibe Benutzer-Profil.
 	 * 
-	 * @param id
+	 * @param userId
 	 *            Benutzeridentifikator
 	 * @param profile
 	 *            Benutzer-Profil
@@ -60,15 +60,15 @@ public interface IProfileService
 	 */
 	@PUT
 	@Path( "" )
-	Profile update( @PathParam( "user_id" ) long id, Profile profile );
+	Profile update( @PathParam( "user_id" ) long userId, Profile profile );
 
 	/**
 	 * Benutzer-Profil löschen.
 	 * 
-	 * @param id
+	 * @param userId
 	 *            Benutzeridentifikator
 	 */
 	@DELETE
 	@Path( "" )
-	void remove( @PathParam( "user_id" ) long id );
+	void remove( @PathParam( "user_id" ) long userId );
 }
