@@ -1,7 +1,5 @@
 package edu.hm.hs.application.service.bean.rest;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -13,7 +11,6 @@ import org.jboss.resteasy.spi.NotFoundException;
 
 import edu.hm.hs.application.api.communication.request.IApplicationService;
 import edu.hm.hs.application.api.object.resource.Application;
-import edu.hm.hs.application.api.object.resource.Job;
 import edu.hm.hs.application.internal.bean.AbstractBean;
 import edu.hm.hs.application.internal.bean.database.IApplicationDAOLocal;
 import edu.hm.hs.application.internal.bean.database.IJobDAOLocal;
@@ -24,6 +21,7 @@ import edu.hm.hs.application.internal.object.entity.EntityApplication;
 import edu.hm.hs.application.internal.object.entity.EntityJob;
 import edu.hm.hs.application.internal.object.entity.EntityProfile;
 import edu.hm.hs.application.internal.object.entity.EntityUser;
+import edu.hm.hs.application.internal.object.mapper.ApplicationMapper;
 
 /**
  * REST-Service für die Bewerbung.
@@ -67,23 +65,7 @@ public class ApplicationService extends AbstractBean implements IApplicationServ
 			throw new NotFoundException( "profile for user with userId:" + userId );
 		}
 
-		List<Application> applications = new ArrayList<Application>();
-
-		for (EntityApplication eApplication : eUser.getProfile().getApplications())
-		{
-			Job job = new Job();
-			job.setId( eApplication.getJob().getId() );
-			job.setName( eApplication.getJob().getName() );
-
-			Application application = new Application();
-			application.setId( eApplication.getId() );
-			application.setDate( eApplication.getDate() );
-			application.setJob( job );
-
-			applications.add( application );
-		}
-
-		return applications;
+		return ApplicationMapper.mapEntityToRessourceWithJob( eUser.getProfile().getApplications() );
 	}
 
 	/**
@@ -118,10 +100,7 @@ public class ApplicationService extends AbstractBean implements IApplicationServ
 			throw new BadRequestException( "already applied for job" );
 		}
 
-		EntityApplication eApplication = new EntityApplication();
-		eApplication.setDate( new Date() );
-		eApplication.setProfile( eUser.getProfile() );
-		eApplication.setJob( eJob );
+		EntityApplication eApplication = ApplicationMapper.mapRessourceToEntity( eUser, eJob );
 		eApplication = m_applicationDAOBean.create( eApplication );
 
 		EntityProfile eProfile = eUser.getProfile();
@@ -131,16 +110,7 @@ public class ApplicationService extends AbstractBean implements IApplicationServ
 		eJob.addApplication( eApplication );
 		eJob = m_jobDAOBean.update( eJob );
 
-		Job job = new Job();
-		job.setId( eJob.getId() );
-		job.setName( eJob.getName() );
-
-		Application application = new Application();
-		application.setId( eApplication.getId() );
-		application.setDate( eApplication.getDate() );
-		application.setJob( job );
-
-		return application;
+		return ApplicationMapper.mapEntityToRessource( eApplication, eJob );
 	}
 
 	/**
@@ -168,18 +138,7 @@ public class ApplicationService extends AbstractBean implements IApplicationServ
 			throw new NotFoundException( "application with id " + applicationId + " for user with userId:" + userId );
 		}
 
-		EntityApplication eApplication = eUser.getProfile().getApplication( applicationId );
-
-		Job job = new Job();
-		job.setId( eApplication.getJob().getId() );
-		job.setName( eApplication.getJob().getName() );
-
-		Application application = new Application();
-		application.setId( eApplication.getId() );
-		application.setDate( eApplication.getDate() );
-		application.setJob( job );
-
-		return application;
+		return ApplicationMapper.mapEntityToRessourceWithJob( eUser.getProfile().getApplication( applicationId ) );
 	}
 
 	/**

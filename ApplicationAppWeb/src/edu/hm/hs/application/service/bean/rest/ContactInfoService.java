@@ -1,6 +1,5 @@
 package edu.hm.hs.application.service.bean.rest;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -19,6 +18,7 @@ import edu.hm.hs.application.internal.interceptor.LoggingInterceptor;
 import edu.hm.hs.application.internal.object.entity.EntityContactInfo;
 import edu.hm.hs.application.internal.object.entity.EntityProfile;
 import edu.hm.hs.application.internal.object.entity.EntityUser;
+import edu.hm.hs.application.internal.object.mapper.ContactInfoMapper;
 
 /**
  * REST-Service für den Benutzer.
@@ -56,19 +56,7 @@ public class ContactInfoService extends AbstractBean implements IContactInfoServ
 			throw new NotFoundException( "profile for user with userId:" + userId );
 		}
 
-		List<ContactInfo> contactInfos = new ArrayList<ContactInfo>();
-
-		for (EntityContactInfo eContactInfo : eUser.getProfile().getContactInfos())
-		{
-			ContactInfo contactInfo = new ContactInfo();
-			contactInfo.setId( eContactInfo.getId() );
-			contactInfo.setType( eContactInfo.getType() );
-			contactInfo.setValue( eContactInfo.getName() );
-
-			contactInfos.add( contactInfo );
-		}
-
-		return contactInfos;
+		return ContactInfoMapper.mapEntityToRessource( eUser.getProfile().getContactInfos() );
 	}
 
 	/**
@@ -92,9 +80,7 @@ public class ContactInfoService extends AbstractBean implements IContactInfoServ
 			throw new NotFoundException( "profile for user with userId:" + userId );
 		}
 
-		EntityContactInfo eContactInfo = new EntityContactInfo();
-		eContactInfo.setType( contactInfo.getType() );
-		eContactInfo.setName( contactInfo.getValue() );
+		EntityContactInfo eContactInfo = ContactInfoMapper.mapRessourceToEntity( contactInfo );
 
 		if (eUser.getProfile().getContactInfo( eContactInfo ) != null)
 		{
@@ -106,12 +92,7 @@ public class ContactInfoService extends AbstractBean implements IContactInfoServ
 
 		eContactInfo = m_profileDAOBean.update( eProfile ).getContactInfo( eContactInfo );
 
-		contactInfo = new ContactInfo();
-		contactInfo.setId( eContactInfo.getId() );
-		contactInfo.setType( eContactInfo.getType() );
-		contactInfo.setValue( eContactInfo.getName() );
-
-		return contactInfo;
+		return ContactInfoMapper.mapEntityToRessource( eContactInfo );
 	}
 
 	/**
@@ -139,14 +120,7 @@ public class ContactInfoService extends AbstractBean implements IContactInfoServ
 			throw new NotFoundException( "contactInfo with id " + contactInfoId + " for user with userId:" + userId );
 		}
 
-		EntityContactInfo eContactInfo = eUser.getProfile().getContactInfo( contactInfoId );
-
-		ContactInfo contactInfo = new ContactInfo();
-		contactInfo.setId( eContactInfo.getId() );
-		contactInfo.setType( eContactInfo.getType() );
-		contactInfo.setValue( eContactInfo.getName() );
-
-		return contactInfo;
+		return ContactInfoMapper.mapEntityToRessource( eUser.getProfile().getContactInfo( contactInfoId ) );
 	}
 
 	/**
@@ -176,9 +150,7 @@ public class ContactInfoService extends AbstractBean implements IContactInfoServ
 		}
 
 		EntityProfile eProfile = eUser.getProfile();
-		EntityContactInfo eContactInfo = new EntityContactInfo();
-		eContactInfo.setType( contactInfo.getType() );
-		eContactInfo.setName( contactInfo.getValue() );
+		EntityContactInfo eContactInfo = ContactInfoMapper.mapRessourceToEntity( contactInfo );
 
 		if (eProfile.getContactInfo( eContactInfo ) != null)
 		{
@@ -191,12 +163,7 @@ public class ContactInfoService extends AbstractBean implements IContactInfoServ
 
 		eContactInfo = m_profileDAOBean.update( eProfile ).getContactInfo( eContactInfo );
 
-		contactInfo = new ContactInfo();
-		contactInfo.setId( eContactInfo.getId() );
-		contactInfo.setType( eContactInfo.getType() );
-		contactInfo.setValue( eContactInfo.getName() );
-
-		return contactInfo;
+		return ContactInfoMapper.mapEntityToRessource( eContactInfo );
 	}
 
 	/**

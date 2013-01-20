@@ -1,6 +1,5 @@
 package edu.hm.hs.application.service.bean.rest;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -19,6 +18,7 @@ import edu.hm.hs.application.internal.interceptor.LoggingInterceptor;
 import edu.hm.hs.application.internal.object.entity.EntityProfile;
 import edu.hm.hs.application.internal.object.entity.EntitySkill;
 import edu.hm.hs.application.internal.object.entity.EntityUser;
+import edu.hm.hs.application.internal.object.mapper.SkillMapper;
 
 /**
  * REST-Service für den Benutzer.
@@ -56,18 +56,7 @@ public class SkillService extends AbstractBean implements ISkillService
 			throw new NotFoundException( "profile for user with userId:" + userId );
 		}
 
-		List<Skill> skills = new ArrayList<Skill>();
-
-		for (EntitySkill eSkill : eUser.getProfile().getSkills())
-		{
-			Skill skill = new Skill();
-			skill.setId( eSkill.getId() );
-			skill.setValue( eSkill.getName() );
-
-			skills.add( skill );
-		}
-
-		return skills;
+		return SkillMapper.mapEntityToRessource( eUser.getProfile().getSkills() );
 	}
 
 	/**
@@ -91,8 +80,7 @@ public class SkillService extends AbstractBean implements ISkillService
 			throw new NotFoundException( "profile for user with userId:" + userId );
 		}
 
-		EntitySkill eSkill = new EntitySkill();
-		eSkill.setName( skill.getValue() );
+		EntitySkill eSkill = SkillMapper.mapRessourceToEntity( skill );
 
 		if (eUser.getProfile().getSkill( eSkill ) != null)
 		{
@@ -104,11 +92,7 @@ public class SkillService extends AbstractBean implements ISkillService
 
 		eSkill = m_profileDAOBean.update( eProfile ).getSkill( eSkill );
 
-		skill = new Skill();
-		skill.setId( eSkill.getId() );
-		skill.setValue( eSkill.getName() );
-
-		return skill;
+		return SkillMapper.mapEntityToRessource( eSkill );
 	}
 
 	/**
@@ -136,13 +120,7 @@ public class SkillService extends AbstractBean implements ISkillService
 			throw new NotFoundException( "skill with id " + skillId + " for user with userId:" + userId );
 		}
 
-		EntitySkill eSkill = eUser.getProfile().getSkill( skillId );
-
-		Skill skill = new Skill();
-		skill.setId( eSkill.getId() );
-		skill.setValue( eSkill.getName() );
-
-		return skill;
+		return SkillMapper.mapEntityToRessource( eUser.getProfile().getSkill( skillId ) );
 	}
 
 	/**
@@ -185,11 +163,7 @@ public class SkillService extends AbstractBean implements ISkillService
 
 		eSkill = m_profileDAOBean.update( eProfile ).getSkill( eSkill );
 
-		skill = new Skill();
-		skill.setId( eSkill.getId() );
-		skill.setValue( eSkill.getName() );
-
-		return skill;
+		return SkillMapper.mapEntityToRessource( eSkill );
 	}
 
 	/**

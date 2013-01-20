@@ -1,6 +1,5 @@
 package edu.hm.hs.application.service.bean.rest;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -15,6 +14,7 @@ import edu.hm.hs.application.internal.bean.AbstractBean;
 import edu.hm.hs.application.internal.bean.database.ICompanyDAOLocal;
 import edu.hm.hs.application.internal.interceptor.LoggingInterceptor;
 import edu.hm.hs.application.internal.object.entity.EntityCompany;
+import edu.hm.hs.application.internal.object.mapper.CompanyMapper;
 
 /**
  * REST-Service für den Benutzer.
@@ -38,18 +38,7 @@ public class CompanyService extends AbstractBean implements ICompanyService
 	public List<Company> findAll()
 	{
 		List<EntityCompany> eCompanys = m_companyDAOBean.readAll();
-		List<Company> companys = new ArrayList<Company>();
-
-		for (EntityCompany eCompany : eCompanys)
-		{
-			Company company = new Company();
-			company.setId( eCompany.getId() );
-			company.setName( eCompany.getName() );
-
-			companys.add( company );
-		}
-
-		return companys;
+		return CompanyMapper.mapEntityToRessource( eCompanys );
 	}
 
 	/**
@@ -60,16 +49,9 @@ public class CompanyService extends AbstractBean implements ICompanyService
 	@Override
 	public Company create( Company company )
 	{
-		EntityCompany eCompany = new EntityCompany();
-		eCompany.setName( company.getName() );
-
+		EntityCompany eCompany = CompanyMapper.mapRessourceToEntity( company );
 		eCompany = m_companyDAOBean.create( eCompany );
-
-		company = new Company();
-		company.setId( eCompany.getId() );
-		company.setName( eCompany.getName() );
-
-		return company;
+		return CompanyMapper.mapEntityToRessource( eCompany );
 	}
 
 	/**
@@ -87,11 +69,7 @@ public class CompanyService extends AbstractBean implements ICompanyService
 			throw new NotFoundException( "company with id:" + id );
 		}
 
-		Company company = new Company();
-		company.setId( eCompany.getId() );
-		company.setName( eCompany.getName() );
-
-		return company;
+		return CompanyMapper.mapEntityToRessource( eCompany );
 	}
 
 	/**
@@ -114,11 +92,7 @@ public class CompanyService extends AbstractBean implements ICompanyService
 
 		eCompany = m_companyDAOBean.update( eCompany );
 
-		company = new Company();
-		company.setId( eCompany.getId() );
-		company.setName( eCompany.getName() );
-
-		return company;
+		return CompanyMapper.mapEntityToRessource( eCompany );
 	}
 
 	/**

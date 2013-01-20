@@ -8,7 +8,6 @@ import org.jboss.resteasy.spi.BadRequestException;
 import org.jboss.resteasy.spi.NotFoundException;
 
 import edu.hm.hs.application.api.communication.request.IProfileService;
-import edu.hm.hs.application.api.object.resource.Address;
 import edu.hm.hs.application.api.object.resource.ContactInfo;
 import edu.hm.hs.application.api.object.resource.Profile;
 import edu.hm.hs.application.api.object.resource.Skill;
@@ -21,6 +20,7 @@ import edu.hm.hs.application.internal.object.entity.EntityContactInfo;
 import edu.hm.hs.application.internal.object.entity.EntityProfile;
 import edu.hm.hs.application.internal.object.entity.EntitySkill;
 import edu.hm.hs.application.internal.object.entity.EntityUser;
+import edu.hm.hs.application.internal.object.mapper.ProfileMapper;
 
 /**
  * REST-Service für den Benutzer-Profil.
@@ -59,82 +59,9 @@ public class ProfileService extends AbstractBean implements IProfileService
 			throw new BadRequestException( "profile already exists" );
 		}
 
-		EntityProfile eProfile = new EntityProfile();
-		eProfile.setUser( eUser );
-		eProfile.setFirstname( profile.getFirstname() );
-		eProfile.setLastname( profile.getLastname() );
-		eProfile.setGender( profile.getGender() );
-		eProfile.seteMailAddress( profile.geteMailAddress() );
-		eProfile.setDateOfBirth( profile.getDateOfBirth() );
-
-		if (profile.getAddress() != null)
-		{
-			EntityAddress eAddress = new EntityAddress();
-			eAddress.setStreet( profile.getAddress().getStreet() );
-			eAddress.setHouseNumber( profile.getAddress().getHouseNumber() );
-			eAddress.setZipCode( profile.getAddress().getZipCode() );
-			eAddress.setCity( profile.getAddress().getCity() );
-			eProfile.setAddress( eAddress );
-		}
-
-		for (Skill skill : profile.getSkills())
-		{
-			EntitySkill eSkill = new EntitySkill();
-			eSkill.setName( skill.getValue() );
-
-			eProfile.addSkill( eSkill );
-		}
-
-		for (ContactInfo contactInfo : profile.getContactInfos())
-		{
-			EntityContactInfo eContactInfo = new EntityContactInfo();
-			eContactInfo.setType( contactInfo.getType() );
-			eContactInfo.setName( contactInfo.getValue() );
-
-			eProfile.addContactInfo( eContactInfo );
-		}
-
+		EntityProfile eProfile = ProfileMapper.mapRessourceToEntity( profile, eUser );
 		eProfile = m_profileDAOBean.create( eProfile );
-
-		profile = new Profile();
-		profile.setId( eProfile.getId() );
-		profile.setFirstname( eProfile.getFirstname() );
-		profile.setLastname( eProfile.getLastname() );
-		profile.setGender( eProfile.getGender() );
-		profile.seteMailAddress( eProfile.geteMailAddress() );
-		profile.setDateOfBirth( eProfile.getDateOfBirth() );
-
-		if (eProfile.getAddress() != null)
-		{
-			Address address = new Address();
-			address.setId( eProfile.getAddress().getId() );
-			address.setStreet( eProfile.getAddress().getStreet() );
-			address.setHouseNumber( eProfile.getAddress().getHouseNumber() );
-			address.setZipCode( eProfile.getAddress().getZipCode() );
-			address.setCity( eProfile.getAddress().getCity() );
-			profile.setAddress( address );
-		}
-
-		for (EntitySkill eSkill : eProfile.getSkills())
-		{
-			Skill skill = new Skill();
-			skill.setId( eSkill.getId() );
-			skill.setValue( eSkill.getName() );
-
-			profile.addSkill( skill );
-		}
-
-		for (EntityContactInfo eContactInfo : eProfile.getContactInfos())
-		{
-			ContactInfo contactInfo = new ContactInfo();
-			contactInfo.setId( eContactInfo.getId() );
-			contactInfo.setType( eContactInfo.getType() );
-			contactInfo.setValue( eContactInfo.getName() );
-
-			profile.addContactInfo( contactInfo );
-		}
-
-		return profile;
+		return ProfileMapper.mapEntityToRessource( eProfile );
 	}
 
 	/**
@@ -157,47 +84,7 @@ public class ProfileService extends AbstractBean implements IProfileService
 			throw new NotFoundException( "profile for user with userId:" + userId );
 		}
 
-		EntityProfile eProfile = eUser.getProfile();
-
-		Profile profile = new Profile();
-		profile.setId( eProfile.getId() );
-		profile.setFirstname( eProfile.getFirstname() );
-		profile.setLastname( eProfile.getLastname() );
-		profile.setGender( eProfile.getGender() );
-		profile.seteMailAddress( eProfile.geteMailAddress() );
-		profile.setDateOfBirth( eProfile.getDateOfBirth() );
-
-		if (eProfile.getAddress() != null)
-		{
-			Address address = new Address();
-			address.setId( eProfile.getAddress().getId() );
-			address.setStreet( eProfile.getAddress().getStreet() );
-			address.setHouseNumber( eProfile.getAddress().getHouseNumber() );
-			address.setZipCode( eProfile.getAddress().getZipCode() );
-			address.setCity( eProfile.getAddress().getCity() );
-			profile.setAddress( address );
-		}
-
-		for (EntitySkill eSkill : eProfile.getSkills())
-		{
-			Skill skill = new Skill();
-			skill.setId( eSkill.getId() );
-			skill.setValue( eSkill.getName() );
-
-			profile.addSkill( skill );
-		}
-
-		for (EntityContactInfo eContactInfo : eProfile.getContactInfos())
-		{
-			ContactInfo contactInfo = new ContactInfo();
-			contactInfo.setId( eContactInfo.getId() );
-			contactInfo.setType( eContactInfo.getType() );
-			contactInfo.setValue( eContactInfo.getName() );
-
-			profile.addContactInfo( contactInfo );
-		}
-
-		return profile;
+		return ProfileMapper.mapEntityToRessource( eUser.getProfile() );
 	}
 
 	/**
@@ -266,45 +153,7 @@ public class ProfileService extends AbstractBean implements IProfileService
 
 		m_profileDAOBean.update( eProfile );
 
-		profile = new Profile();
-		profile.setId( eProfile.getId() );
-		profile.setFirstname( eProfile.getFirstname() );
-		profile.setLastname( eProfile.getLastname() );
-		profile.setGender( eProfile.getGender() );
-		profile.seteMailAddress( eProfile.geteMailAddress() );
-		profile.setDateOfBirth( eProfile.getDateOfBirth() );
-
-		if (eProfile.getAddress() != null)
-		{
-			Address address = new Address();
-			address.setId( eProfile.getAddress().getId() );
-			address.setStreet( eProfile.getAddress().getStreet() );
-			address.setHouseNumber( eProfile.getAddress().getHouseNumber() );
-			address.setZipCode( eProfile.getAddress().getZipCode() );
-			address.setCity( eProfile.getAddress().getCity() );
-			profile.setAddress( address );
-		}
-
-		for (EntitySkill eSkill : eProfile.getSkills())
-		{
-			Skill skill = new Skill();
-			skill.setId( eSkill.getId() );
-			skill.setValue( eSkill.getName() );
-
-			profile.addSkill( skill );
-		}
-
-		for (EntityContactInfo eContactInfo : eProfile.getContactInfos())
-		{
-			ContactInfo contactInfo = new ContactInfo();
-			contactInfo.setId( eContactInfo.getId() );
-			contactInfo.setType( eContactInfo.getType() );
-			contactInfo.setValue( eContactInfo.getName() );
-
-			profile.addContactInfo( contactInfo );
-		}
-
-		return profile;
+		return ProfileMapper.mapEntityToRessource( eProfile );
 	}
 
 	/**
