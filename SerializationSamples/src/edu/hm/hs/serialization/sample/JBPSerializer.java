@@ -1,4 +1,5 @@
 package edu.hm.hs.serialization.sample;
+
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.File;
@@ -9,11 +10,24 @@ import java.io.IOException;
 import edu.hm.hs.serialization.sample.object.Address;
 
 /**
+ * Serialisierungsbeispiel für JBP.
+ * 
  * @author Stefan Wörner
  */
-public class JBPSerializer
+public final class JBPSerializer
 {
 
+	private JBPSerializer()
+	{
+
+	}
+
+	/**
+	 * Main-Methode.
+	 * 
+	 * @param args
+	 *            Aufrufparameter
+	 */
 	public static void main( String[] args )
 	{
 		Address address = new Address();

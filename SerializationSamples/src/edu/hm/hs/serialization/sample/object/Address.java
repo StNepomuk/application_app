@@ -1,10 +1,11 @@
 package edu.hm.hs.serialization.sample.object;
+
 import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * Resource für die Adresse.
+ * Klasse für die Adresse.
  * 
  * @author Stefan Wörner
  */
@@ -14,7 +15,7 @@ public class Address implements Serializable
 
 	private static final long serialVersionUID = 9048690440773846206L;
 
-	transient private Long m_id;
+	private transient Long m_id;
 
 	private String m_street;
 

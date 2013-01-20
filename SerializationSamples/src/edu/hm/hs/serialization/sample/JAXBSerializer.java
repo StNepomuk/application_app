@@ -1,4 +1,5 @@
 package edu.hm.hs.serialization.sample;
+
 import java.io.File;
 
 import javax.xml.bind.JAXBContext;
@@ -9,11 +10,24 @@ import javax.xml.bind.Unmarshaller;
 import edu.hm.hs.serialization.sample.object.Address;
 
 /**
+ * Serialisierungsbeispiel für JAXB.
+ * 
  * @author Stefan Wörner
  */
-public class JAXBSerializer
+public final class JAXBSerializer
 {
 
+	private JAXBSerializer()
+	{
+
+	}
+
+	/**
+	 * Main-Methode.
+	 * 
+	 * @param args
+	 *            Aufrufparameter
+	 */
 	public static void main( String[] args )
 	{
 		Address address = new Address();

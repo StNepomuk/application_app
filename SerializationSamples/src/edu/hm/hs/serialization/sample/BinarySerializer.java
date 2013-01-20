@@ -1,4 +1,5 @@
 package edu.hm.hs.serialization.sample;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -13,11 +14,24 @@ import java.io.OutputStream;
 import edu.hm.hs.serialization.sample.object.Address;
 
 /**
+ * Serialisierungsbeispiel für JOS.
+ * 
  * @author Stefan Wörner
  */
-public class BinarySerializer
+public final class BinarySerializer
 {
 
+	private BinarySerializer()
+	{
+
+	}
+
+	/**
+	 * Main-Methode.
+	 * 
+	 * @param args
+	 *            Aufrufparameter
+	 */
 	public static void main( String[] args )
 	{
 		Address address = new Address();
@@ -76,6 +90,7 @@ public class BinarySerializer
 			}
 			catch (Exception e)
 			{
+				e.printStackTrace();
 			}
 		}
 	}
